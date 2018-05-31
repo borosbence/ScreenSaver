@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-/* + Reference */ 
-using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,25 +18,42 @@ namespace ScreenSaver
     /// </summary>
     public partial class App : Application
     {
-        private void ApplicationStartup(object sender, StartupEventArgs e)
+        private void Application_Startup(object sender, StartupEventArgs e)
         {
-            /* https://wbsimms.com/create-screensaver-net-wpf/  */
+            findscreen(e);
+        }
+
+        private void findscreen(StartupEventArgs e)
+        {
+            /* https://wbsimms.com/create-screensaver-net-wpf/  
+             * https://stackoverflow.com/questions/2561104/how-do-i-ensure-a-form-displays-on-the-additional-monitor-in-a-dual-monitor-sc
+             */
             if (e.Args.Length == 0 || e.Args[0].ToLower().StartsWith("/s"))
             {
                 foreach (Screen s in Screen.AllScreens)
                 {
-                    if (s != Screen.PrimaryScreen)
+                    if (s == Screen.PrimaryScreen)
                     {
-                        Blackout window = new Blackout();
+                        MainWindow window = new MainWindow();
+                        window.Left = s.Bounds.Left;
+                        window.Top = s.Bounds.Top;
+                        window.Height = s.Bounds.Height;
+                        window.Width = s.Bounds.Width;
                         window.Show();
                     }
                     else
                     {
-                        MainWindow window = new MainWindow();
+                        Blackout window = new Blackout();
+                        window.Left = s.Bounds.Left;
+                        window.Top = s.Bounds.Top;
+                        window.Height = s.Bounds.Height;
+                        window.Width = s.Bounds.Width;
                         window.Show();
                     }
                 }
             }
         }
+
+
     }
 }

@@ -9,13 +9,13 @@
         Background="Black"
         Topmost="True"
         WindowStyle="None"
-        WindowState="Maximized"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         Cursor="None"
         MouseMove="Window_MouseMove" 
         KeyDown="Window_KeyDown" 
         MouseDown="Window_MouseDown">
+    <!--WindowState="Maximized"-->
     <Image x:Name="Vetites"
            Source="{StaticResource tigris1}" 
            Cursor="None" 
