@@ -1,2 +1,2 @@
 # ScreenSaver
-Free Screensaver Creator
+Create a screensaver from custom images.
