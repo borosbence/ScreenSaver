@@ -21,34 +21,39 @@ namespace ScreenSaver
     /// </summary>
     public partial class MainWindow : Window
     {
+        int randomKep;
+        DispatcherTimer timer = new DispatcherTimer();
+        Random random = new Random();
         public MainWindow()
         {
             InitializeComponent();
-            /* http://www.wpf-tutorial.com/misc/dispatchertimer/ */
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(5);
-            timer.Tick += timer_Tick;
-            timer.Start();
-        }
-
-        Random random = new Random();
-        int randomKep;
-        private void kepValasztas(int index)
-        {
-            string res = ("tigris" + index).ToString();
-            Vetites.Source = Application.Current.Resources[res] as ImageSource;
-        }
-
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            randomKep = random.Next(1, 4);
-            kepValasztas(randomKep);
+            changeTimer();
         }
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             randomKep = random.Next(1, 4);
-            kepValasztas(randomKep);
+            changePicture(randomKep);
+        }
+
+        /* http://www.wpf-tutorial.com/misc/dispatchertimer/ */
+        private void changeTimer()
+        {                   
+            timer.Interval = TimeSpan.FromSeconds(5);
+            timer.Tick += timer_Tick;
+            timer.Start();
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            randomKep = random.Next(1, 4);
+            changePicture(randomKep);
+        }
+
+        private void changePicture(int index)
+        {
+            string res = ("tigris" + index).ToString();
+            Vetites.Source = Application.Current.Resources[res] as ImageSource;
         }
 
         /* Ha az egér 1500 pixelnyit mozog akkor kilép a programból 

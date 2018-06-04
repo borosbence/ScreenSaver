@@ -19,22 +19,12 @@ namespace ScreenSaver
     /// </summary>
     public partial class Blackout : Window
     {
+        private Point mouseLocation = Mouse.GetPosition(null);
         public Blackout()
         {
             InitializeComponent();
         }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
-        private Point mouseLocation = Mouse.GetPosition(null);
         private void Window_MouseMove(object sender, MouseEventArgs e)
         {
             Point mouseLocationNew = e.GetPosition(null);
@@ -45,6 +35,16 @@ namespace ScreenSaver
                 Application.Current.Shutdown();
             }
 
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }
