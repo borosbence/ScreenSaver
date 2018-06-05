@@ -15,9 +15,7 @@
         MouseMove="Window_MouseMove" 
         KeyDown="Window_KeyDown" 
         MouseDown="Window_MouseDown">
-    <!--WindowState="Maximized"-->
-    <Image x:Name="Vetites"
-           Source="{StaticResource tigris1}" 
+    <Image x:Name="Vetites" 
            Cursor="None" 
            Stretch="UniformToFill"/>
 </Window>

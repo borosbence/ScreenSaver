@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.IO;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -21,19 +22,16 @@ namespace ScreenSaver
     /// </summary>
     public partial class MainWindow : Window
     {
-        int randomKep;
         DispatcherTimer timer = new DispatcherTimer();
         Random random = new Random();
+        EventArgs ea = new EventArgs();
+        private Point mouseLocation = Mouse.GetPosition(null);
+        
         public MainWindow()
         {
             InitializeComponent();
             changeTimer();
-        }
-
-        void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            randomKep = random.Next(1, 4);
-            changePicture(randomKep);
+            timer_Tick(null, ea);
         }
 
         /* http://www.wpf-tutorial.com/misc/dispatchertimer/ */
@@ -46,20 +44,25 @@ namespace ScreenSaver
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            randomKep = random.Next(1, 4);
-            changePicture(randomKep);
+            randomImage();
         }
 
-        private void changePicture(int index)
-        {
-            string res = ("tigris" + index).ToString();
-            Vetites.Source = Application.Current.Resources[res] as ImageSource;
-        }
+        /*   https://social.msdn.microsoft.com/Forums/vstudio/en-US/93a2b52e-f1b0-4721-b6cc-7547e3ddc4f3/how-do-i-display-a-random-out-of-3-images-image-in-an-image-control?forum=wpf  */
+         private void randomImage()
+         {
+             string imageDirectory = System.IO.Path.GetFullPath(@"../../img/");
+             string[] imagePaths = Directory.GetFiles(imageDirectory, "*.jpg");
+             int index = random.Next(imagePaths.Length);
 
-        /* Ha az egér 1500 pixelnyit mozog akkor kilép a programból 
-         * https://wpf.2000things.com/2012/10/17/670-getting-the-mouse-position-relative-to-a-specific-element/
-         * https://www.harding.edu/fmccown/screensaver/screensaver.html */
-        private Point mouseLocation = Mouse.GetPosition(null);
+             BitmapImage bitmapImage = new BitmapImage(
+                                         new Uri(imagePaths[index])
+                                         );
+             Vetites.Source = bitmapImage;
+         }
+
+         /* Ha az egér 1500 pixelnyit mozog akkor kilép a programból 
+          * https://wpf.2000things.com/2012/10/17/670-getting-the-mouse-position-relative-to-a-specific-element/
+          * https://www.harding.edu/fmccown/screensaver/screensaver.html */
         private void Window_MouseMove(object sender, MouseEventArgs e)
         {
             Point mouseLocationNew = e.GetPosition(null);
