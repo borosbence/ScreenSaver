@@ -60,7 +60,7 @@ namespace ScreenSaver
              Vetites.Source = bitmapImage;
          }
 
-         /* Ha az egér 1500 pixelnyit mozog akkor kilép a programból 
+         /* If the mouse move 1500 pixel, it exit the program
           * https://wpf.2000things.com/2012/10/17/670-getting-the-mouse-position-relative-to-a-specific-element/
           * https://www.harding.edu/fmccown/screensaver/screensaver.html */
         private void Window_MouseMove(object sender, MouseEventArgs e)

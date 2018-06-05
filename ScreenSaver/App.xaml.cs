@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 /* + Reference  */  
 using System.Windows.Forms;
-/* Át kell írni, hogy az app működjön */
+/* Rename reference*/
 using Application = System.Windows.Application;
 
 
@@ -18,16 +18,13 @@ namespace ScreenSaver
     /// </summary>
     public partial class App : Application
     {
-        private void Application_Startup(object sender, StartupEventArgs e)
-        {
-            findscreen(e);
-        }
 
-        private void findscreen(StartupEventArgs e)
-        {
-            /* https://wbsimms.com/create-screensaver-net-wpf/  
+        /* https://wbsimms.com/create-screensaver-net-wpf/  
              * https://stackoverflow.com/questions/2561104/how-do-i-ensure-a-form-displays-on-the-additional-monitor-in-a-dual-monitor-sc
              */
+
+        private void ApplicationStartup(object sender, StartupEventArgs e)
+        {
             if (e.Args.Length == 0 || e.Args[0].ToLower().StartsWith("/s"))
             {
                 foreach (Screen s in Screen.AllScreens)
@@ -35,25 +32,26 @@ namespace ScreenSaver
                     if (s == Screen.PrimaryScreen)
                     {
                         MainWindow window = new MainWindow();
-                        window.Left = s.Bounds.Left;
-                        window.Top = s.Bounds.Top;
-                        window.Height = s.Bounds.Height;
-                        window.Width = s.Bounds.Width;
+                        window.Left = s.WorkingArea.Left;
+                        window.Top = s.WorkingArea.Top;
+                        window.Height = s.WorkingArea.Height;
+                        window.Width = s.WorkingArea.Width;
                         window.Show();
                     }
                     else
                     {
                         Blackout window = new Blackout();
-                        window.Left = s.Bounds.Left;
-                        window.Top = s.Bounds.Top;
-                        window.Height = s.Bounds.Height;
-                        window.Width = s.Bounds.Width;
+                        window.Left = s.WorkingArea.Left;
+                        window.Top = s.WorkingArea.Top;
+                        window.Height = s.WorkingArea.Height;
+                        window.Width = s.WorkingArea.Width;
                         window.Show();
                     }
                 }
             }
+            // If you want to configurate, or preview mode
+            //else if (e.Args[0].ToLower().StartsWith("/c"))
+            //else if (e.Args[0].ToLower().StartsWith("/p"))
         }
-
-
     }
 }
