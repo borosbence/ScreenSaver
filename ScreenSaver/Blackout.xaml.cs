@@ -29,7 +29,6 @@ namespace ScreenSaver
         {
             Point mouseLocationNew = e.GetPosition(null);
 
-            // Terminate if mouse is moved a significant distance
             if ((Math.Abs(mouseLocation.X - mouseLocationNew.X) > 1500) || (Math.Abs(mouseLocation.Y - mouseLocationNew.Y) > 1500))
             {
                 Application.Current.Shutdown();

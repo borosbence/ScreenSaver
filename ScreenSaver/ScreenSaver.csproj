@@ -108,4 +108,7 @@
     <Resource Include="img\tigris1.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)$(TargetName).exe" "$(TargetDir)\ScreenSaver.scr"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

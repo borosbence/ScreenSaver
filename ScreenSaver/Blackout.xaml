@@ -15,5 +15,4 @@
         MouseMove="Window_MouseMove" 
         KeyDown="Window_KeyDown" 
         MouseDown="Window_MouseDown">
-    <!--WindowState="Maximized"-->
 </Window>
